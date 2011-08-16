@@ -1,13 +1,8 @@
 share_examples_for 'An Adapter' do
 
   def self.adapter_supports?(*methods)
-    adapter_class = DataMapper::Spec.adapter.class
-    if adapter_class.respond_to?(:capabilities)
-      adapter_capabilities = adapter_class.capabilities
-      adapter_capabilities[:all] || methods.all? { |method| adapter_capabilities[method] }
-    else
-      false
-    end
+    adapter_capabilities = DataMapper::Spec.adapter.class.capabilities
+    adapter_capabilities[:all] || methods.all? { |method| adapter_capabilities[method] }
   end
 
   before :all do

@@ -15,6 +15,7 @@ module DataMapper
     # sense to inherit from DataObjectsAdapter class.
     class AbstractAdapter
       include DataMapper::Assertions
+      include Capabilities
       extend DataMapper::Assertions
       extend Equalizer
 
