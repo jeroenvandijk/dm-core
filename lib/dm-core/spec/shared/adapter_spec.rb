@@ -41,6 +41,14 @@ share_examples_for 'An Adapter' do
       Heffalump.auto_migrate!
     end
   end
+  
+  it "should be able to set capabilities" do
+    @adapter.should respond_to(:capabilities)
+  end
+  
+  it "should define capabilities" do
+    @adapter.capabilities.should_not be_nil
+  end
 
   if adapter_supports?(:create)
     describe '#create' do

@@ -1,3 +1,5 @@
+require 'dm-core/capabilities'
+
 module DataMapper
   module Adapters
     # Specific adapters extend this class and implement
