@@ -9,6 +9,10 @@ module DataMapper
     # budding adapter developers, so it is critical that it remains well documented
     # and up to date.
     class InMemoryAdapter < AbstractAdapter
+      include Capabilities
+      
+      capabilities :all => true
+      
       # Used by DataMapper to put records into a data-store: "INSERT" in SQL-speak.
       # It takes an array of the resources (model instances) to be saved. Resources
       # each have a key that can be used to quickly look them up later without
