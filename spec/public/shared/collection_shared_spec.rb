@@ -9,8 +9,7 @@ share_examples_for 'A public Collection' do
   end
 
   before :all do
-    @no_join = defined?(DataMapper::Adapters::InMemoryAdapter) && @adapter.kind_of?(DataMapper::Adapters::InMemoryAdapter) ||
-               defined?(DataMapper::Adapters::YamlAdapter)     && @adapter.kind_of?(DataMapper::Adapters::YamlAdapter)
+    @no_join = !@adapter.capabilities[:join]
 
     @one_to_many  = @articles.kind_of?(DataMapper::Associations::OneToMany::Collection)
     @many_to_many = @articles.kind_of?(DataMapper::Associations::ManyToMany::Collection)

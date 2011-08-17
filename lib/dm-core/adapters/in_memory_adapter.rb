@@ -9,7 +9,8 @@ module DataMapper
     # budding adapter developers, so it is critical that it remains well documented
     # and up to date.
     class InMemoryAdapter < AbstractAdapter
-      capabilities :all => true
+      # TODO we need to find a better name for the :join capability
+      capabilities :all => true, :join => false
       
       # Used by DataMapper to put records into a data-store: "INSERT" in SQL-speak.
       # It takes an array of the resources (model instances) to be saved. Resources

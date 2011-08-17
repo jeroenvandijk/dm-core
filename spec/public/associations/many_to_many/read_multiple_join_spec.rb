@@ -50,8 +50,7 @@ describe 'Many to Many Associations read across multiple join associations' do
     end
 
     before :all do
-      @no_join = defined?(DataMapper::Adapters::InMemoryAdapter) && @adapter.kind_of?(DataMapper::Adapters::InMemoryAdapter) ||
-                 defined?(DataMapper::Adapters::YamlAdapter)     && @adapter.kind_of?(DataMapper::Adapters::YamlAdapter)
+      @no_join = !@adapter.capabilities[:join]
 
       @skip = @no_join
     end

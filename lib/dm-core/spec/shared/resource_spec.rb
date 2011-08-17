@@ -1,7 +1,6 @@
 share_examples_for 'A public Resource' do
   before :all do
-    @no_join = defined?(DataMapper::Adapters::InMemoryAdapter) && @adapter.kind_of?(DataMapper::Adapters::InMemoryAdapter) ||
-               defined?(DataMapper::Adapters::YamlAdapter)     && @adapter.kind_of?(DataMapper::Adapters::YamlAdapter)
+    @no_join = !@adapter.capabilities[:join]
 
     relationship        = @user_model.relationships[:referrer]
     @one_to_one_through = relationship.kind_of?(DataMapper::Associations::OneToOne::Relationship) && relationship.respond_to?(:through)

@@ -70,8 +70,7 @@ describe 'Many to Many Associations' do
 
   supported_by :all do
     before :all do
-      @no_join = defined?(DataMapper::Adapters::InMemoryAdapter) && @adapter.kind_of?(DataMapper::Adapters::InMemoryAdapter) ||
-                 defined?(DataMapper::Adapters::YamlAdapter)     && @adapter.kind_of?(DataMapper::Adapters::YamlAdapter)
+      @no_join = !@adapter.capabilities[:join]
     end
 
     before do
