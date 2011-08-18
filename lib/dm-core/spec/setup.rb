@@ -56,7 +56,9 @@ module DataMapper
         plugins = ENV['PLUGINS'] || ENV['PLUGIN']
         plugins = plugins.to_s.split(/[,\s]+/)
 
-        if spec_adapters[:default].adapter.capabilities[:migrations]
+        capabilities = spec_adapters[:default].adapter.capabilities
+
+        if capabilities && capabilities[:migrations]
           plugins.push('dm-migrations')
         end
         plugins.uniq.each { |plugin| require plugin }
