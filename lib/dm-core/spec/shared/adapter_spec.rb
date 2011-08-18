@@ -2,7 +2,29 @@ share_examples_for 'An Adapter' do
 
   def self.adapter_supports?(*methods)
     adapter_capabilities = DataMapper::Spec.adapter.capabilities
-    adapter_capabilities && (adapter_capabilities[:all] || methods.all? { |method| adapter_capabilities[method] })
+    if adapter_capabilities 
+      (adapter_capabilities[:all] || methods.all? { |method| adapter_capabilities[method] })
+    else
+      # TODO Add a deprecation warning here so people know to define capabilities
+      # FIXME obviously this needs a real fix!
+      # --------------------------------------
+      # Probably, delaying adapter_supports?
+      # to be executed after DataMapper.setup
+      # has been called will solve our current
+      # problem with described_type() being nil
+      # for as long as DataMapper.setup wasn't
+      # called
+      return true if ENV['ADAPTER_SUPPORTS'] == 'all'
+
+      methods.all? do |method|
+        # TODO: figure out a way to see if the instance method is only inherited
+        # from the Abstract Adapter, and not defined in it's class.  If that is
+        # the case return false
+
+        # CRUD methods can be inherited from parent class
+        described_type.instance_methods.any? { |instance_method| method.to_s == instance_method.to_s }
+      end
+    end
   end
   
   def adapter_supports(*methods)
