@@ -84,6 +84,7 @@ Gem::Specification.new do |s|
     "lib/dm-core/resource/persistence_state/immutable.rb",
     "lib/dm-core/resource/persistence_state/persisted.rb",
     "lib/dm-core/resource/persistence_state/transient.rb",
+    "lib/dm-core/spec/spec_helper.rb",
     "lib/dm-core/spec/lib/adapter_helpers.rb",
     "lib/dm-core/spec/lib/collection_helpers.rb",
     "lib/dm-core/spec/lib/counter_adapter.rb",

@@ -24,8 +24,9 @@ module DataMapper
       def configure
         @configured = begin
           setup_logger
+          # TODO add deprecation warning for old adapters that still rely on this
+          require_spec_adapter if Spec.spec_adapters.none?
           require_plugins
-          require_spec_adapter
           true
         end
       end
@@ -54,7 +55,8 @@ module DataMapper
       def require_plugins
         plugins = ENV['PLUGINS'] || ENV['PLUGIN']
         plugins = plugins.to_s.split(/[,\s]+/)
-        unless ENV['ADAPTER'] == 'in_memory'
+
+        if spec_adapters[:default].adapter.capabilities[:migrations]
           plugins.push('dm-migrations')
         end
         plugins.uniq.each { |plugin| require plugin }

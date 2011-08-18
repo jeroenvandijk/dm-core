@@ -10,7 +10,9 @@ module DataMapper
     # and up to date.
     class InMemoryAdapter < AbstractAdapter
       # TODO we need to find a better name for the :join capability
-      capabilities :all => true, :join => false
+      # TODO describe all the possible options somewhere e.g. :migrations => true
+      # TODO have a better dsl
+      capabilities :all => true, :join => false, :migrations => :false
       
       # Used by DataMapper to put records into a data-store: "INSERT" in SQL-speak.
       # It takes an array of the resources (model instances) to be saved. Resources

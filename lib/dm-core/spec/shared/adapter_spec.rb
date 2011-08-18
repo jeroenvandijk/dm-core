@@ -1,13 +1,10 @@
 share_examples_for 'An Adapter' do
 
-  def self.adapter_supports?(*methods)
-    adapter_capabilities = DataMapper::Spec.adapter.class.capabilities
-    adapter_capabilities[:all] || methods.all? { |method| adapter_capabilities[method] }
+  def adapter_supports(*methods)
+    self.class.adapter_supports(*methods)
   end
 
   before :all do
-    raise '+@adapter+ should be defined in before block' unless instance_variable_get('@adapter')
-
     class ::Heffalump
       include DataMapper::Resource
 
@@ -20,17 +17,17 @@ share_examples_for 'An Adapter' do
     DataMapper.finalize
 
     # create all tables and constraints before each spec
-    if @repository.respond_to?(:auto_migrate!)
+    if Heffalump.respond_to?(:auto_migrate!)
       Heffalump.auto_migrate!
     end
   end
   
   it "should be able to set capabilities" do
-    @adapter.should respond_to(:capabilities)
+    DataMapper::Spec.adapter.should respond_to(:capabilities)
   end
   
   it "should define capabilities" do
-    @adapter.capabilities.should_not be_nil
+    DataMapper::Spec.adapter.capabilities.should_not be_nil
   end
 
   if adapter_supports?(:create)
