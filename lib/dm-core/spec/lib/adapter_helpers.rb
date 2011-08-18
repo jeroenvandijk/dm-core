@@ -4,11 +4,6 @@ module DataMapper
 
       module Helpers
 
-        def adapter_supports?(*methods)
-          adapter_capabilities = DataMapper::Spec.adapter.capabilities
-          adapter_capabilities[:all] || methods.all? { |method| adapter_capabilities[method] }
-        end
-
         def supported_by(*adapters, &block)
           adapters = adapters.map { |adapter| adapter.to_sym }
           adapter  = DataMapper::Spec.adapter_name.to_sym

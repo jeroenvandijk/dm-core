@@ -1,5 +1,10 @@
 share_examples_for 'An Adapter' do
 
+  def self.adapter_supports?(*methods)
+    adapter_capabilities = DataMapper::Spec.adapter.capabilities
+    adapter_capabilities && (adapter_capabilities[:all] || methods.all? { |method| adapter_capabilities[method] })
+  end
+  
   def adapter_supports(*methods)
     self.class.adapter_supports(*methods)
   end
